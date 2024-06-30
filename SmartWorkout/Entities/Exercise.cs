@@ -1,9 +1,7 @@
 ﻿namespace SmartWorkout.Entities
 {
-    public class Exercise
-    {
-        public int Id { get; set; }
-        
+    public class Exercise : BaseEntity
+    {        
         public string Description { get; set; }
         
         public string Type { get; set; }

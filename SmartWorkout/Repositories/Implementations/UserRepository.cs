@@ -4,19 +4,10 @@ using SmartWorkout.Repositories.Interfaces;
 
 namespace SmartWorkout.Repositories.Implementations
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        private readonly SmartWorkoutContext _context;
-
-        public UserRepository(SmartWorkoutContext context)
+        public UserRepository(SmartWorkoutContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public ICollection<User> GetUsers()
-        {
-            var users = _context.Users.ToList();
-            return users;
         }
     }
 }

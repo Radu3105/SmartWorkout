@@ -2,8 +2,7 @@
 
 namespace SmartWorkout.Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User>
     {
-        ICollection<User> GetUsers();
     }
 }

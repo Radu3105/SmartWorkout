@@ -1,0 +1,15 @@
+﻿@page "/usersPage"
+@using SmartWorkout.Entities
+
+<DataGrid   
+    TItem="User"
+    Data="@_users"
+    Filterable
+    FilterMethod="DataGridFilterMethod.StartsWith"
+    Responsive
+>
+    <DataGridColumn TItem="User" Field="FirstName" Caption="First Name"></DataGridColumn>
+    <DataGridColumn TItem="User" Field="LastName" Caption="Last Name"></DataGridColumn>
+    <DataGridColumn TItem="User" Field="Birthday" Caption="Birthday" DisplayFormat="{0:MM/dd/yyyy}"></DataGridColumn>
+    <DataGridColumn TItem="User" Field="Gender" Caption="Gender"></DataGridColumn>
+</DataGrid>
