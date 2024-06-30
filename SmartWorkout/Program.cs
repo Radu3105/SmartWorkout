@@ -25,6 +25,9 @@ builder.Services
     .AddFontAwesomeIcons();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+builder.Services.AddScoped<IExerciseLogRepository, ExerciseLogRepository>();
 
 var app = builder.Build();
 
