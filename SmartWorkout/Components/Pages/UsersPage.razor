@@ -1,6 +1,11 @@
 ﻿@page "/usersPage"
 @using SmartWorkout.Entities
 
+<div class="nav-item px-3">
+    <NavLink class="nav-link" href="addOrEditUsers">
+        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Add User
+    </NavLink>
+</div>
 <DataGrid   
     TItem="User"
     Data="@_users"

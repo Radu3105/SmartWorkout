@@ -1,0 +1,23 @@
+﻿@page "/addOrEditExercises"
+@using SmartWorkout.Entities
+@using Extension_Methods
+
+<EditForm Model="@Exercise" OnValidSubmit=@AddExerciseAsync FormName="editForm">
+    <div class="form-group">
+        <label>Description :</label>
+        <div>
+            <InputText @bind-Value="Exercise.Description" class="form-control col-sm-3" />
+            <ValidationMessage For="@(() => Exercise.Description)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Type :</label>
+        <div>
+            <InputText @bind-Value="Exercise.Type" class="form-control col-sm-3" />
+            <ValidationMessage For="@(() => Exercise.Type)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Save" />
+    </div>
+</EditForm>

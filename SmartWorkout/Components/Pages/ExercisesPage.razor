@@ -1,0 +1,16 @@
+﻿@page "/exercises"
+@using SmartWorkout.Entities
+
+<div class="nav-item px-3">
+    <NavLink class="nav-link" href="addOrEditExercises">
+        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Add Exercise
+    </NavLink>
+</div>
+<DataGrid TItem="Exercise"
+          Data="@_exercises"
+          Filterable
+          FilterMethod="DataGridFilterMethod.StartsWith"
+          Responsive>
+    <DataGridColumn TItem="Exercise" Field="Description" Caption="Description"></DataGridColumn>
+    <DataGridColumn TItem="Exercise" Field="Type" Caption="Type"></DataGridColumn>
+</DataGrid>
