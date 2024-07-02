@@ -1,0 +1,25 @@
+﻿@page "/workouts"
+@using SmartWorkout.Entities
+
+<DataGrid   
+    TItem="Workout"
+    Data="@_workouts"
+    Filterable
+    FilterMethod="DataGridFilterMethod.StartsWith"
+    Responsive
+>
+   <DataGridColumn TItem="Workout" Field="Name" Caption="Name"></DataGridColumn>
+   <DataGridColumn TItem="Workout" Field="Date" Caption="Date"></DataGridColumn> 
+   <DataGridColumn TItem="Workout" Field= "User.FirstName" Caption="User">
+        <DisplayTemplate>
+            @{
+                var user2 = (context as Workout)?.User;
+
+                if (user2 != null)
+                {
+                    @($"{user2.FirstName} {user2.LastName}")
+                }
+            }
+        </DisplayTemplate>
+   </DataGridColumn> 
+</DataGrid>

@@ -4,16 +4,16 @@ using SmartWorkout.Repositories.Interfaces;
 
 namespace SmartWorkout.Components.Pages
 {
-    public partial class Exercises : ComponentBase
+    public partial class WorkoutsPage : ComponentBase
     {
         [Inject]
-        public IExerciseRepository ExerciseRepository { get; set; }
+        public IWorkoutRepository WorkoutRepository { get; set; }
 
-        private  ICollection<Exercise> _exercises;
+        private ICollection<Workout> _workouts;
 
         protected override async Task OnInitializedAsync()
         {
-            _exercises = await ExerciseRepository.GetAllAsync();
+            _workouts = await WorkoutRepository.GetAllAsync();
         }
     }
 }

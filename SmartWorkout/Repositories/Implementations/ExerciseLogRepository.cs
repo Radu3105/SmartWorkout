@@ -1,4 +1,5 @@
-﻿using SmartWorkout.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartWorkout.Context;
 using SmartWorkout.Entities;
 using SmartWorkout.Repositories.Interfaces;
 
@@ -8,6 +9,11 @@ namespace SmartWorkout.Repositories.Implementations
     {
         public ExerciseLogRepository(SmartWorkoutContext context) : base(context)
         {
+        }
+
+        public override async Task<ICollection<ExerciseLog>> GetAllAsync()
+        {
+            return await context.ExerciseLogs.Include(x => x.Workout).Include(x => x.Exercise).ToListAsync();
         }
     }
 }
