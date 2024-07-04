@@ -1,8 +1,9 @@
-﻿@page "/usersPage"
+﻿@page "/users"
 @using SmartWorkout.Entities
+@rendermode InteractiveServer
 
 <div class="nav-item px-3">
-    <NavLink class="nav-link" href="addOrEditUsers">
+    <NavLink class="nav-link" href="user/add">
         <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Add User
     </NavLink>
 </div>
@@ -12,9 +13,16 @@
     Filterable
     FilterMethod="DataGridFilterMethod.StartsWith"
     Responsive
+    Editable
 >
     <DataGridColumn TItem="User" Field="FirstName" Caption="First Name"></DataGridColumn>
     <DataGridColumn TItem="User" Field="LastName" Caption="Last Name"></DataGridColumn>
     <DataGridColumn TItem="User" Field="Birthday" Caption="Birthday" DisplayFormat="{0:MM/dd/yyyy}"></DataGridColumn>
     <DataGridColumn TItem="User" Field="Gender" Caption="Gender"></DataGridColumn>
+    <DataGridCommandColumn TItem="User">
+        <EditCommandTemplate>
+            <Button Color="Color.Dark" Clicked="()=>OnEditBtnClicked(context)">Edit</Button>
+        </EditCommandTemplate>
+    </DataGridCommandColumn>
+
 </DataGrid>
