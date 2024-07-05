@@ -47,8 +47,15 @@ namespace SmartWorkout.Components.Pages
             {
                 var user = UserMapper.ToUser(UserDto);
                 Console.WriteLine($"User: {user.Id}, {user.FirstName}, {user.LastName}, {user.Gender}, {user.Birthday}");
+
                 if (IsEdit)
                 {
+                    var trackedEntity = UserRepository.GetTrackedEntity(user.Id);
+                    if (trackedEntity != null)
+                    {
+                        UserRepository.Detach(trackedEntity);
+                    }
+
                     await UserRepository.UpdateAsync(user);
                 }
                 else
@@ -63,5 +70,6 @@ namespace SmartWorkout.Components.Pages
                 Console.WriteLine($"Error saving user: {ex.Message}");
             }
         }
+
     }
 }
