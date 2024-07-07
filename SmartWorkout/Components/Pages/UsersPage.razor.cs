@@ -31,11 +31,13 @@ namespace SmartWorkout.Components.Pages
             }
         }
 
-        private async Task HandleDeleteConfirm(bool confirmed)
+        private async Task OnDeleteBtnClicked(DeleteCommandContext<User> context)
         {
-            if (confirmed)
+            SelectedUser = context.Item;
+            if (SelectedUser != null)
             {
                 await UserRepository.RemoveAsync(SelectedUser.Id);
+                OnInitialized();
             }
         }
     }

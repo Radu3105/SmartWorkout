@@ -1,4 +1,5 @@
 ﻿@page "/users"
+@using Blazorise.DataGrid
 @using SmartWorkout.Entities
 @rendermode InteractiveServer
 
@@ -21,8 +22,11 @@
     <DataGridColumn TItem="User" Field="Gender" Caption="Gender"></DataGridColumn>
     <DataGridCommandColumn TItem="User">
         <EditCommandTemplate>
-            <Button Color="Color.Dark" Clicked="()=>OnEditBtnClicked(context)">Edit</Button>
+            <Button Color="Color.Dark" Clicked="() => OnEditBtnClicked(context)">Edit</Button>
         </EditCommandTemplate>
+        <DeleteCommandTemplate>
+            <Button Color="Color.Primary" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+        </DeleteCommandTemplate>
     </DataGridCommandColumn>
 
 </DataGrid>
