@@ -22,6 +22,24 @@ namespace SmartWorkout.Components.Pages
             _users = await UserRepository.GetAllAsync();
         }
 
+        private void OnSeeWorkoutsBtnClicked(EditCommandContext<User> context)
+        {
+            SelectedUser = context.Item;
+            if (SelectedUser != null)
+            {
+                NavigationManager.NavigateTo($"/workouts/{SelectedUser.Id}");
+            }
+        }
+
+        private void OnAddWorkoutBtnClicked(EditCommandContext<User> context) 
+        {
+            SelectedUser = context.Item;
+            if (SelectedUser != null)
+            {
+                NavigationManager.NavigateTo($"/workout/add/{SelectedUser.Id}");
+            }
+        }
+
         private void OnEditBtnClicked(EditCommandContext<User> context)
         {
             var id = context.Item.Id;
@@ -37,7 +55,7 @@ namespace SmartWorkout.Components.Pages
             if (SelectedUser != null)
             {
                 await UserRepository.RemoveAsync(SelectedUser.Id);
-                OnInitialized();
+                await OnInitializedAsync();
             }
         }
     }

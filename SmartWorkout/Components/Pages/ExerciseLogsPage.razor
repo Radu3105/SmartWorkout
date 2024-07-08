@@ -1,11 +1,17 @@
 ﻿@page "/exerciseLogs"
+@page "/exerciseLogs/{WorkoutId:int}"
 @using SmartWorkout.Entities
 
 <DataGrid TItem="ExerciseLog"
           Data="@_exerciseLogs"
           Filterable
           FilterMethod="DataGridFilterMethod.StartsWith"
-          Responsive>
-    <DataGridColumn TItem="Exercise" Field="Description" Caption="Description"></DataGridColumn>
-    <DataGridColumn TItem="Exercise" Field="Type" Caption="Type"></DataGridColumn>
+          Responsive
+          Editable
+>
+    <DataGridColumn TItem="ExerciseLog" Field="Reps" Caption="Reps"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="Duration" Caption="Duration"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="Exercise" Caption="Exercise"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="Workout" Caption="Workout"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="User" Caption="User"></DataGridColumn>
 </DataGrid>

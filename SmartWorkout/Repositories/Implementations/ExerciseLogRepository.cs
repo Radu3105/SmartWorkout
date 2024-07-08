@@ -15,5 +15,10 @@ namespace SmartWorkout.Repositories.Implementations
         {
             return await context.ExerciseLogs.Include(x => x.Workout).Include(x => x.Exercise).ToListAsync();
         }
+
+        public async Task<ICollection<ExerciseLog>> GetAllByWorkoutIdAsync(int workoutId)
+        {
+            return await context.ExerciseLogs.Where(x => x.WorkoutId == workoutId).ToListAsync();
+        }
     }
 }

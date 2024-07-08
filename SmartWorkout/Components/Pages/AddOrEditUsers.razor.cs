@@ -46,8 +46,6 @@ namespace SmartWorkout.Components.Pages
             try
             {
                 var user = UserMapper.ToUser(UserDto);
-                Console.WriteLine($"User: {user.Id}, {user.FirstName}, {user.LastName}, {user.Gender}, {user.Birthday}");
-
                 if (IsEdit)
                 {
                     var trackedEntity = UserRepository.GetTrackedEntity(user.Id);
