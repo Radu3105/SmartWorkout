@@ -20,5 +20,15 @@ namespace SmartWorkout.Repositories.Implementations
         {
             return await context.ExerciseLogs.Where(x => x.WorkoutId == workoutId).ToListAsync();
         }
+
+        public void Detach(ExerciseLog entity)
+        {
+            context.Entry(entity).State = EntityState.Detached;
+        }
+
+        public ExerciseLog GetTrackedEntity(int id)
+        {
+            return context.ExerciseLogs.Local.FirstOrDefault(e => e.Id == id);
+        }
     }
 }

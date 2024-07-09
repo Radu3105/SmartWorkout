@@ -15,13 +15,13 @@ namespace SmartWorkout.Mappers
             };
         }
 
-        public static ExerciseDto ToExerciseDto(Exercise user)
+        public static ExerciseDto ToExerciseDto(Exercise exercise)
         {
             return new ExerciseDto
             {
-                Id = user.Id,
-                Description = user.Description,
-                Type = user.Type,
+                Id = exercise.Id,
+                Description = exercise.Description,
+                Type = exercise.Type,
             };
         }
     }

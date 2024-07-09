@@ -36,6 +36,15 @@ namespace SmartWorkout.Components.Pages
             }
         }
 
+        private void OnAddExerciseLogBtnClicked(EditCommandContext<Workout> context)
+        {
+            SelectedWorkout = context.Item;
+            if (SelectedWorkout != null)
+            {
+                NavigationManager.NavigateTo($"/exerciseLog/add/{SelectedWorkout.Id}");
+            }
+        }
+
         private void OnSeeExerciseLogsBtnClicked(EditCommandContext<Workout> context)
         {
             SelectedWorkout = context.Item;

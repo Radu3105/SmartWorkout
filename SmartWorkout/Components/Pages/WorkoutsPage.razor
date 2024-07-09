@@ -27,6 +27,7 @@
     <DataGridCommandColumn TItem="Workout" ClearFilterCommandAllowed="false" NewCommandAllowed="false">
         <EditCommandTemplate>
             <Button Color="Color.Warning" Clicked="() => OnSeeExerciseLogsBtnClicked(context)">See Exercise Logs</Button>
+            <Button Color="Color.Success" Clicked="() => OnAddExerciseLogBtnClicked(context)">+ Add Exercise Log</Button>
         </EditCommandTemplate>
         <DeleteCommandTemplate>
             <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
