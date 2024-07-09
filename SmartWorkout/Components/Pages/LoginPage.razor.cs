@@ -39,7 +39,14 @@ namespace SmartWorkout.Components.Pages
                 _failedLogin = false;
                 StateHasChanged();
                 AuthService.Login(User);
-                await InvokeAsync(() => NavigationManager.NavigateTo("/users"));
+                if (AuthService.IsTrainer)
+                {
+                    await InvokeAsync(() => NavigationManager.NavigateTo("/users"));
+                }
+                else
+                {
+                    await InvokeAsync(() => NavigationManager.NavigateTo("/exerciseLogs"));
+                }
             }
         }
     }

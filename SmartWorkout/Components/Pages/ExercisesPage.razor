@@ -22,10 +22,12 @@ else
               Data="@_exercises"
               Filterable
               FilterMethod="DataGridFilterMethod.StartsWith"
-              Responsive>
+              Responsive
+              Editable
+    >
         <DataGridColumn TItem="Exercise" Field="Description" Caption="Description"></DataGridColumn>
         <DataGridColumn TItem="Exercise" Field="Type" Caption="Type"></DataGridColumn>
-        <DataGridCommandColumn TItem="Exercise">
+        <DataGridCommandColumn TItem="Exercise" ClearFilterCommandAllowed="false" NewCommandAllowed="false" EditCommandAllowed="false">
             <EditCommandTemplate>
                 <Button Color="Color.Dark" Clicked="() => OnEditBtnClicked(context)">Edit</Button>
             </EditCommandTemplate>
