@@ -16,6 +16,11 @@ namespace SmartWorkout.Repositories.Implementations
             return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            return await context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
+        }
+
         public void Detach(User entity)
         {
             context.Entry(entity).State = EntityState.Detached;

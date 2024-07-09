@@ -11,6 +11,9 @@ namespace SmartWorkout.Components.Pages
         [Inject]
         public IExerciseLogRepository ExerciseLogRepository { get; set; }
 
+        [Inject]
+        public AuthService AuthService { get; set; }
+
         [Parameter]
         public int WorkoutId { get; set; }
 

@@ -11,5 +11,9 @@
         public string Gender { get; set; }
 
         public ICollection<Workout> Workouts { get; set; }
+
+        public string Email { get; set; }
+
+        public bool isTrainer { get; set; }
     }
 }

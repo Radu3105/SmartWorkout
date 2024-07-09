@@ -3,27 +3,22 @@ using SmartWorkout.Entities;
 using SmartWorkout.Mappers;
 using SmartWorkout.Repositories.Interfaces;
 using WorkoutApp.DTOs;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SmartWorkout.Components.Pages
 {
-    public partial class AddOrEditUsers : ComponentBase
+    public partial class Register : ComponentBase
     {
         [Inject]
-        public IUserRepository UserRepository { get; set; }
+        public required IUserRepository UserRepository { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        [Inject]
-        public AuthService AuthService { get; set; }
-
         [Parameter]
         public int UserId { get; set; }
 
-        public UserDto UserDto { get; set; } = new UserDto();
-        public User User { get; set; } = new User();
+        public UserAuthenticationDto UserAuthenticationDto { get; set; } = new();
+        public User User { get; set; } = new();
 
         private bool IsEdit = false;
 
@@ -34,12 +29,12 @@ namespace SmartWorkout.Components.Pages
                 User = await UserRepository.GetByIdAsync(UserId);
                 if (User != null)
                 {
-                    UserDto = UserMapper.ToUserDto(User);
+                    UserAuthenticationDto = UserAuthenticationMapper.ToUserAuthenticationDto(User);
                     IsEdit = true;
                 }
                 else
                 {
-                    await InvokeAsync(() => NavigationManager.NavigateTo("/users"));
+                    await InvokeAsync(() => NavigationManager.NavigateTo("/"));
                 }
             }
         }
@@ -48,7 +43,7 @@ namespace SmartWorkout.Components.Pages
         {
             try
             {
-                var user = UserMapper.ToUser(UserDto);
+                var user = UserAuthenticationMapper.ToUser(UserAuthenticationDto);
                 if (IsEdit)
                 {
                     var trackedEntity = UserRepository.GetTrackedEntity(user.Id);
@@ -64,7 +59,7 @@ namespace SmartWorkout.Components.Pages
                     await UserRepository.AddAsync(user);
                 }
 
-                await InvokeAsync(() => NavigationManager.NavigateTo("/users"));
+                await InvokeAsync(() => NavigationManager.NavigateTo("/"));
             }
             catch (Exception ex)
             {

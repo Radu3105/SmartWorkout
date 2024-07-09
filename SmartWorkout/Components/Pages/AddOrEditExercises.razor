@@ -3,22 +3,33 @@
 @using SmartWorkout.Entities
 @using Extension_Methods
 
-<EditForm Model="@ExerciseDto" OnValidSubmit=@OnFormSubmitAsync FormName="editForm">
-    <div class="form-group">
-        <label>Description :</label>
-        <div>
-            <InputText @bind-Value="ExerciseDto.Description" class="form-control col-sm-3" />
-            <ValidationMessage For="@(() => ExerciseDto.Description)" />
+@if (!AuthService.IsLoggedIn)
+{
+    <p>You need to log in to access this page.</p>
+}
+else if (!AuthService.IsTrainer)
+{
+    <p>You do not have access to this page.</p>
+}
+else
+{
+    <EditForm Model="@ExerciseDto" OnValidSubmit=@OnFormSubmitAsync FormName="editForm">
+        <div class="form-group">
+            <label>Description :</label>
+            <div>
+                <InputText @bind-Value="ExerciseDto.Description" class="form-control col-sm-3" />
+                <ValidationMessage For="@(() => ExerciseDto.Description)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Type :</label>
-        <div>
-            <InputText @bind-Value="ExerciseDto.Type" class="form-control col-sm-3" />
-            <ValidationMessage For="@(() => ExerciseDto.Type)" />
+        <div class="form-group">
+            <label>Type :</label>
+            <div>
+                <InputText @bind-Value="ExerciseDto.Type" class="form-control col-sm-3" />
+                <ValidationMessage For="@(() => ExerciseDto.Type)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Save" />
-    </div>
-</EditForm>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+    </EditForm>
+}

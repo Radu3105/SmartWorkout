@@ -1,0 +1,31 @@
+﻿@page "/login"
+
+@using Blazorise
+@using SmartWorkout.Entities
+@using SmartWorkout.Extension_Methods
+
+<EditForm Model="UserLoginDto" OnValidSubmit="LoginUser" FormName="editForm">
+    <DataAnnotationsValidator />
+
+    <Alert Color="Color.Danger" Visible="@_failedLogin">
+        Invalid login credentials. Please try again.
+    </Alert>
+
+    <div class="form-group">
+        <label>Email :</label>
+        <div>
+            <InputText @bind-Value="UserLoginDto.Email" class="form-control col-sm-3" />
+            <ValidationMessage For="@(() => UserLoginDto.Email)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Password :</label>
+        <div>
+            <InputText @bind-Value="UserLoginDto.Password" class="form-control col-sm-3" />
+            <ValidationMessage For="@(() => UserLoginDto.Password)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Save" />
+    </div>
+</EditForm>

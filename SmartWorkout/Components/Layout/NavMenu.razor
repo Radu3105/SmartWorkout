@@ -1,6 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">SmartWorkout</a>
+        <a class="navbar-brand" href="">Smart Workout</a>
     </div>
 </div>
 
@@ -8,29 +8,67 @@
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="users" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Users
-            </NavLink>
-        </div>
+        @if (AuthService.IsLoggedIn)
+        {
+            if (AuthService.IsTrainer)
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="users" Match="NavLinkMatch.All">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Users
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="exercises">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Exercises
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="workouts">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Workouts
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="workouts">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Workouts
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="exercises">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Exercises
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="exerciseLogs">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Exercise Logs
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="exerciseLogs">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Exercise Logs
+                    </NavLink>
+                </div>
+
+                <Divider />
+            }
+            else
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="exerciseLogs">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Exercise Logs
+                    </NavLink>
+                </div>
+
+                <Divider />
+            }
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="login">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true" @onclick="AuthService.Logout"></span> Log Out
+                </NavLink>
+            </div>
+        }
+        else 
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="login">
+                    <span class="bi bi-box-arrow-in-right" aria-hidden="true"></span>Log In
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="register">
+                    <span class="bi bi-box-arrow-in-right" aria-hidden="true"></span>Register
+                </NavLink>
+            </div>
+        }
     </nav>
 </div>
 

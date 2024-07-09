@@ -2,20 +2,27 @@
 @page "/exerciseLogs/{WorkoutId:int}"
 @using SmartWorkout.Entities
 
-<DataGrid TItem="ExerciseLog"
-          Data="@_exerciseLogs"
-          Filterable
-          FilterMethod="DataGridFilterMethod.StartsWith"
-          Responsive
-          Editable
->
-    <DataGridColumn TItem="ExerciseLog" Field="Reps" Caption="Reps"></DataGridColumn>
-    <DataGridColumn TItem="ExerciseLog" Field="Duration" Caption="Duration"></DataGridColumn>
-    <DataGridColumn TItem="ExerciseLog" Field="Exercise.Description" Caption="Exercise"></DataGridColumn>
-    <DataGridColumn TItem="ExerciseLog" Field="Workout.Name" Caption="Workout"></DataGridColumn>
-    <DataGridCommandColumn TItem="ExerciseLog" ClearFilterCommandAllowed="false" NewCommandAllowed="false" EditCommandAllowed="false">
-        <DeleteCommandTemplate>
-            <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
-        </DeleteCommandTemplate>
-    </DataGridCommandColumn>
-</DataGrid>
+@if (!AuthService.IsLoggedIn)
+{
+    <p>You need to log in to access this page.</p>
+}
+else 
+{
+    <DataGrid TItem="ExerciseLog"
+              Data="@_exerciseLogs"
+              Filterable
+              FilterMethod="DataGridFilterMethod.StartsWith"
+              Responsive
+              Editable
+    >
+        <DataGridColumn TItem="ExerciseLog" Field="Reps" Caption="Reps"></DataGridColumn>
+        <DataGridColumn TItem="ExerciseLog" Field="Duration" Caption="Duration"></DataGridColumn>
+        <DataGridColumn TItem="ExerciseLog" Field="Exercise.Description" Caption="Exercise"></DataGridColumn>
+        <DataGridColumn TItem="ExerciseLog" Field="Workout.Name" Caption="Workout"></DataGridColumn>
+        <DataGridCommandColumn TItem="ExerciseLog" ClearFilterCommandAllowed="false" NewCommandAllowed="false" EditCommandAllowed="false">
+            <DeleteCommandTemplate>
+                <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+            </DeleteCommandTemplate>
+        </DataGridCommandColumn>
+    </DataGrid>
+}
