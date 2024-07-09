@@ -13,6 +13,7 @@ namespace SmartWorkout.Mappers
                 ExerciseId = exerciseLog.ExerciseId,
                 WorkoutId = exerciseLog.WorkoutId,
                 Reps = exerciseLog.Reps,
+                Duration = exerciseLog.Duration,
             };
         }
 
@@ -24,6 +25,7 @@ namespace SmartWorkout.Mappers
                 ExerciseId = exerciseLogDto.ExerciseId,
                 WorkoutId = exerciseLogDto.WorkoutId,
                 Reps = exerciseLogDto.Reps,
+                Duration = exerciseLogDto.Duration,
             };
         }
     }

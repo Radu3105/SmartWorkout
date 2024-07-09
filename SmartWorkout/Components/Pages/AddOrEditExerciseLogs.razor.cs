@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using SmartWorkout.Entities;
 using SmartWorkout.Mappers;
+using SmartWorkout.Repositories.Implementations;
 using SmartWorkout.Repositories.Interfaces;
 using System.Diagnostics;
 using WorkoutApp.DTOs;
@@ -11,7 +12,9 @@ namespace SmartWorkout.Components.Pages
     {
         [Inject]
         public IExerciseLogRepository ExerciseLogRepository { get; set; }
-        public IUserRepository UserRepository { get; set; }
+
+        [Inject]
+        public IWorkoutRepository WorkoutRepository { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }

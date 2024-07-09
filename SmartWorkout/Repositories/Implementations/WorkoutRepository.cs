@@ -26,6 +26,15 @@ namespace SmartWorkout.Repositories.Implementations
             return await context.Workouts.Where(x => x.UserId == userId).ToListAsync();
         }
 
+        public async Task<User> GetUserByWorkoutIdAsync(int workoutId)
+        {
+            var workout = await context.Workouts
+                    .Include(w => w.User)
+                    .FirstOrDefaultAsync(w => w.Id == workoutId);
+
+            return workout?.User;
+        }
+
         public void Detach(Workout entity)
         {
             context.Entry(entity).State = EntityState.Detached;

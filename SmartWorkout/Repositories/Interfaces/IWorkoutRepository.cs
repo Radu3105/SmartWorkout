@@ -6,6 +6,8 @@ namespace SmartWorkout.Repositories.Interfaces
     {
         Task<ICollection<Workout>> GetAllByUserIdAsync(int userId);
 
+        Task<User> GetUserByWorkoutIdAsync(int workoutId);
+
         void Detach(Workout entity);
 
         Workout GetTrackedEntity(int id);

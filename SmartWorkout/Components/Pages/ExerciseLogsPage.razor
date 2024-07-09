@@ -11,7 +11,11 @@
 >
     <DataGridColumn TItem="ExerciseLog" Field="Reps" Caption="Reps"></DataGridColumn>
     <DataGridColumn TItem="ExerciseLog" Field="Duration" Caption="Duration"></DataGridColumn>
-    <DataGridColumn TItem="ExerciseLog" Field="Exercise" Caption="Exercise"></DataGridColumn>
-    <DataGridColumn TItem="ExerciseLog" Field="Workout" Caption="Workout"></DataGridColumn>
-    <DataGridColumn TItem="ExerciseLog" Field="User" Caption="User"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="Exercise.Description" Caption="Exercise"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="Workout.Name" Caption="Workout"></DataGridColumn>
+    <DataGridCommandColumn TItem="ExerciseLog" ClearFilterCommandAllowed="false" NewCommandAllowed="false" EditCommandAllowed="false">
+        <DeleteCommandTemplate>
+            <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+        </DeleteCommandTemplate>
+    </DataGridCommandColumn>
 </DataGrid>
