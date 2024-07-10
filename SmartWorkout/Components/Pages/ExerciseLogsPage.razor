@@ -2,23 +2,26 @@
 @page "/exerciseLogs/{WorkoutId:int}"
 @using SmartWorkout.Entities
 
-    <DataGrid TItem="ExerciseLog"
-              Data="@_exerciseLogs"
-              Filterable
-              FilterMethod="DataGridFilterMethod.StartsWith"
-              Responsive
-              Editable
-    >
-        <DataGridColumn TItem="ExerciseLog" Field="Reps" Caption="Reps"></DataGridColumn>
-        <DataGridColumn TItem="ExerciseLog" Field="Duration" Caption="Duration"></DataGridColumn>
-        <DataGridColumn TItem="ExerciseLog" Field="Exercise.Description" Caption="Exercise"></DataGridColumn>
-        <DataGridColumn TItem="ExerciseLog" Field="Workout.Name" Caption="Workout"></DataGridColumn>
-        <DataGridCommandColumn TItem="ExerciseLog" ClearFilterCommandAllowed="false" NewCommandAllowed="false" EditCommandAllowed="false">
-            <DeleteCommandTemplate>
-                @if (_isAdministrator)
-                {    
-                    <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
-                }
-            </DeleteCommandTemplate>
-        </DataGridCommandColumn>
-    </DataGrid>
+<DataGrid TItem="ExerciseLog"
+          Data="@_exerciseLogs"
+          Filterable
+          FilterMethod="DataGridFilterMethod.StartsWith"
+          Responsive
+          Editable
+          ShowPager
+          PagerPosition="DataGridPagerPosition.Bottom"
+          PageSize="10"
+>
+    <DataGridColumn TItem="ExerciseLog" Field="Reps" Caption="Reps"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="Duration" Caption="Duration"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="Exercise.Description" Caption="Exercise"></DataGridColumn>
+    <DataGridColumn TItem="ExerciseLog" Field="Workout.Name" Caption="Workout"></DataGridColumn>
+    <DataGridCommandColumn TItem="ExerciseLog" ClearFilterCommandAllowed="false" NewCommandAllowed="false" EditCommandAllowed="false">
+        <DeleteCommandTemplate>
+            @if (_isAdministrator)
+            {    
+                <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+            }
+        </DeleteCommandTemplate>
+    </DataGridCommandColumn>
+</DataGrid>
