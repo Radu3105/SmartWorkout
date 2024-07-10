@@ -14,6 +14,9 @@ using SmartWorkout.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -40,6 +43,7 @@ builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddScoped<ProtectedSessionStorage>();
 
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<CustomAuthenticationStateProvider>();
 
 var app = builder.Build();
 

@@ -14,6 +14,8 @@ namespace SmartWorkout.Mappers
                 LastName = userDto.LastName,
                 Birthday = userDto.Birthday,
                 Gender = userDto.Gender,
+                Email = userDto.Email,
+                isTrainer = userDto.IsTrainer,
             };
         }
 
@@ -26,6 +28,8 @@ namespace SmartWorkout.Mappers
                 LastName = user.LastName,
                 Birthday = user.Birthday,
                 Gender = user.Gender,
+                Email = user.Email,
+                IsTrainer = user.isTrainer,
             };
         }
     }

@@ -15,7 +15,10 @@
         <DataGridColumn TItem="ExerciseLog" Field="Workout.Name" Caption="Workout"></DataGridColumn>
         <DataGridCommandColumn TItem="ExerciseLog" ClearFilterCommandAllowed="false" NewCommandAllowed="false" EditCommandAllowed="false">
             <DeleteCommandTemplate>
-                <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+                @if (_isAdministrator)
+                {    
+                    <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+                }
             </DeleteCommandTemplate>
         </DataGridCommandColumn>
     </DataGrid>

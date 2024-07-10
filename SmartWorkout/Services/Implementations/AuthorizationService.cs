@@ -33,7 +33,7 @@ namespace SmartWorkout.Components.Services.Implementations
                 {
                     throw new Exception("Wrong username or password");
                 }
-                if (loginDto.Password == userToLogin.Birthday.ToString("MMyyyy"))
+                if (loginDto.Password == userToLogin.Birthday.Month.ToString() + userToLogin.Birthday.Year.ToString())
                 {
                     CurrentUser = UserMapper.ToUserDto(userToLogin);
                 }

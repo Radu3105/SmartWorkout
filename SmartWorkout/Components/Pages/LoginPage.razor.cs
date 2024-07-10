@@ -25,17 +25,47 @@ namespace SmartWorkout.Components.Pages
         [SupplyParameterFromForm]
         public UserLoginDto UserLoginDto { get; set; } = new();
 
-        public User User { get; set; } = new();
-
         private bool _failedLogin = false;
+        private UserDto? _currentUser;
+
+        protected override async Task OnInitializedAsync()
+        {
+            if (_currentUser != null)
+            {
+                if (_currentUser.IsTrainer == true)
+                {
+                    NavigationManager.NavigateTo("/users", true);
+                }
+                else
+                {
+                    NavigationManager.NavigateTo("/exerciseLogs", true);
+                }
+            }
+        }
 
         public async Task LoginUser()
         {
             try
             {
                 await AuthorizationService.Login(UserLoginDto);
-                NavigationManager.NavigateTo("/", true);
-                _failedLogin = false;
+
+                _currentUser = AuthorizationService.GetCurrentUser();
+                if (_currentUser != null)
+                {
+                    if (_currentUser.IsTrainer == true)
+                    {
+                        NavigationManager.NavigateTo("/users", true);
+                    }
+                    else
+                    {
+                        NavigationManager.NavigateTo("/exerciseLogs", true);
+                    }
+                    _failedLogin = false;
+                }
+                else
+                {
+                    _failedLogin = true;
+                }
             }
             catch (Exception e)
             {

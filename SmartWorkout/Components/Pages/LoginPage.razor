@@ -1,10 +1,13 @@
-﻿@page "/login"
+﻿@page "/"
+@page "/login"
 
 @using Blazorise
 @using SmartWorkout.Entities
 @using SmartWorkout.Extension_Methods
 
-<EditForm Model="UserLoginDto" OnValidSubmit="LoginUser" FormName="editForm">
+
+
+@* <EditForm Model="UserLoginDto" OnValidSubmit="LoginUser" FormName="editForm">
     <DataAnnotationsValidator />
 
     <Alert Color="Color.Danger" Visible="@_failedLogin">
@@ -28,4 +31,68 @@
     <div class="form-group">
         <input type="submit" class="btn btn-primary" value="Save" Click="LoginUser" />
     </div>
-</EditForm>
+</EditForm> *@
+
+<div class="login-flex-container">
+    <div class="login-container">
+        <Alert Color="Color.Danger" Visible="@_failedLogin">
+            Invalid login credentials. Please try again.
+        </Alert>
+
+        <Card>
+            <CardHeader>
+                <h2 class="text-center">Login</h2>
+            </CardHeader>
+            <CardBody>
+                <EditForm Model="UserLoginDto" OnValidSubmit="LoginUser" FormName="editForm">
+                    <DataAnnotationsValidator />
+                    <div class="form-group">
+                        <label><h5>Email :</h5></label>
+                        <div>
+                            <InputText @bind-Value="UserLoginDto.Email" class="form-control col-sm-12" />
+                            <ValidationMessage For="@(() => UserLoginDto.Email)" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><h5>Password :</h5></label>
+                        <div>
+                            <InputText @bind-Value="UserLoginDto.Password" InputType="password" class="form-control col-sm-12" />
+                            <ValidationMessage For="@(() => UserLoginDto.Password)" />
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <Button Color="Color.Primary" Type="ButtonType.Submit" class="btn btn-primary">Login</Button>
+                    </div>
+                </EditForm>
+            </CardBody>
+        </Card>
+    </div>
+</div>
+
+<style>
+    .login-flex-container {
+        width: 100%;
+        height: 85vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-container {
+        /* max-width: 50vw; */
+        width: 30vw;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .form-group {
+        margin: 40px 15% 15px 15%;
+    }
+
+    .btn-primary {
+        margin-top: 25px;
+        margin-bottom: 50px;
+        width: 100%;
+        height: 50px;
+    }
+</style>
