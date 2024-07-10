@@ -23,6 +23,13 @@
         </div>
     </div>
     <div class="form-group">
+        <label>Email :</label>
+        <div>
+            <InputText @bind-Value="UserDto.Email" class="form-control col-sm-3" />
+            <ValidationMessage For="@(() => UserDto.Email)" />
+        </div>
+    </div>
+    <div class="form-group">
         <label> Select your gender: </label>
         <InputSelect @bind-Value="@UserDto.Gender" class="form-control col-sm-3">
             @foreach (Gender gender in Enum.GetValues(typeof(Gender)))
@@ -38,6 +45,9 @@
             <InputDate @bind-Value="UserDto.Birthday" class="form-control col-sm-3" />
             <ValidationMessage For="@(() => UserDto.Birthday)" />
         </div>
+    </div>
+    <div class="form-group">
+        <Check TValue="bool" @bind-Checked="UserDto.IsTrainer">I am a trainer</Check>
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-primary" value="Save" />
