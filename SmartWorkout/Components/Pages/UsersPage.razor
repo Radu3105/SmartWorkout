@@ -6,6 +6,8 @@
 
 @* @attribute [Authorize(Roles="Administrator")] *@
 
+<h1>Users</h1>
+
 <div class="nav-item px-3">
     <NavLink class="nav-link" href="user/add">
         <Button Color="Color.Success">+ Add User</Button>
@@ -28,12 +30,26 @@
     <DataGridColumn TItem="User" Field="Gender" Caption="Gender"></DataGridColumn>
     <DataGridCommandColumn TItem="User" ClearFilterCommandAllowed="false" NewCommandAllowed="false">
         <EditCommandTemplate>
-            <Button Color="Color.Warning" Clicked="() => OnSeeWorkoutsBtnClicked(context)">See Workouts</Button>
-            <Button Color="Color.Success" Clicked="() => OnAddWorkoutBtnClicked(context)">+ Add Workout</Button>
-            <Button Color="Color.Primary" Clicked="() => OnEditBtnClicked(context)">Edit</Button>
+            <Button Clicked="() => OnSeeWorkoutsBtnClicked(context)">
+                <Icon Name="IconName.List" TextColor="TextColor.Secondary" IconSize="IconSize.Large" />
+                <Span>See Workouts</Span>
+            </Button>
+            <Button Clicked="() => OnAddWorkoutBtnClicked(context)" TextColor="TextColor.Success">
+                <Icon Name="IconName.Add" TextColor="TextColor.Success" IconSize="IconSize.Large" />
+                <Span>Add Workout</Span>
+            </Button>
+            <Tooltip Text="Edit User">
+                <Button Clicked="() => OnEditBtnClicked(context)">
+                    <Icon Name="IconName.Edit" TextColor="TextColor.Primary" IconSize="IconSize.Large" />
+                </Button>
+            </Tooltip>
         </EditCommandTemplate>
         <DeleteCommandTemplate>
-            <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+            <Tooltip Text="Delete User">
+                <Button Clicked="() => OnDeleteBtnClicked(context)">
+                    <Icon Name="IconName.Delete" TextColor="TextColor.Danger" IconSize="IconSize.Large"/>
+                </Button>
+            </Tooltip>
         </DeleteCommandTemplate>
     </DataGridCommandColumn>
 </DataGrid>
