@@ -3,54 +3,43 @@
 @using SmartWorkout.Entities
 @using Extension_Methods
 
-@if (!AuthService.IsLoggedIn)
-{
-    <p>You need to log in to access this page.</p>
-}
-else if (!AuthService.IsTrainer)
-{
-    <p>You do not have access to this page.</p>
-}
-else
-{
-    <EditForm Model="@UserDto" OnValidSubmit="OnFormSubmitAsync" FormName="editForm">
-        <DataAnnotationsValidator />
+<EditForm Model="@UserDto" OnValidSubmit="OnFormSubmitAsync" FormName="editForm">
+    <DataAnnotationsValidator />
 
-        <InputNumber @bind-Value="UserDto.Id" style="display: none;" />
+    <InputNumber @bind-Value="UserDto.Id" style="display: none;" />
 
-        <div class="form-group">
-            <label>First Name :</label>
-            <div>
-                <InputText @bind-Value="UserDto.FirstName" class="form-control col-sm-3" />
-                <ValidationMessage For="@(() => UserDto.FirstName)" />
-            </div>
+    <div class="form-group">
+        <label>First Name :</label>
+        <div>
+            <InputText @bind-Value="UserDto.FirstName" class="form-control col-sm-3" />
+            <ValidationMessage For="@(() => UserDto.FirstName)" />
         </div>
-        <div class="form-group">
-            <label>Last Name :</label>
-            <div>
-                <InputText @bind-Value="UserDto.LastName" class="form-control col-sm-3" />
-                <ValidationMessage For="@(() => UserDto.LastName)" />
-            </div>
+    </div>
+    <div class="form-group">
+        <label>Last Name :</label>
+        <div>
+            <InputText @bind-Value="UserDto.LastName" class="form-control col-sm-3" />
+            <ValidationMessage For="@(() => UserDto.LastName)" />
         </div>
-        <div class="form-group">
-            <label> Select your gender: </label>
-            <InputSelect @bind-Value="@UserDto.Gender" class="form-control col-sm-3">
-                @foreach (Gender gender in Enum.GetValues(typeof(Gender)))
-                {
-                    <option value="@gender">@gender.GetDescription()</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(() => UserDto.Gender)" />
+    </div>
+    <div class="form-group">
+        <label> Select your gender: </label>
+        <InputSelect @bind-Value="@UserDto.Gender" class="form-control col-sm-3">
+            @foreach (Gender gender in Enum.GetValues(typeof(Gender)))
+            {
+                <option value="@gender">@gender.GetDescription()</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => UserDto.Gender)" />
+    </div>
+    <div class="form-group">
+        <label>Birthday :</label>
+        <div>
+            <InputDate @bind-Value="UserDto.Birthday" class="form-control col-sm-3" />
+            <ValidationMessage For="@(() => UserDto.Birthday)" />
         </div>
-        <div class="form-group">
-            <label>Birthday :</label>
-            <div>
-                <InputDate @bind-Value="UserDto.Birthday" class="form-control col-sm-3" />
-                <ValidationMessage For="@(() => UserDto.Birthday)" />
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Save" />
-        </div>
-    </EditForm>
-}
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Save" />
+    </div>
+</EditForm>

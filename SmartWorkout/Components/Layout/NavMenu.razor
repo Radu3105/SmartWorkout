@@ -1,4 +1,5 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using BlazorServerAuthenticationAndAuthorization.Authentication
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Smart Workout</a>
     </div>
@@ -8,67 +9,86 @@
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
-        @if (AuthService.IsLoggedIn)
-        {
-            if (AuthService.IsTrainer)
-            {
+        <AuthorizeView Roles="Administrator">
+            <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="users" Match="NavLinkMatch.All">
                         <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Users
                     </NavLink>
                 </div>
+            </Authorized>
+        </AuthorizeView>
 
+        <AuthorizeView Roles="Administrator">
+            <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="workouts">
                         <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Workouts
                     </NavLink>
                 </div>
+            </Authorized>
+        </AuthorizeView>
 
+        <AuthorizeView Roles="Administrator">
+            <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="exercises">
                         <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Exercises
                     </NavLink>
                 </div>
+            </Authorized>
+        </AuthorizeView>
 
+        <AuthorizeView>
+            <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="exerciseLogs">
                         <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Exercise Logs
                     </NavLink>
                 </div>
+            </Authorized>
+        </AuthorizeView>
 
-                <Divider />
-            }
-            else
-            {
+        <Divider />
+
+        <AuthorizeView>
+            <Authorized>
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="exerciseLogs">
-                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Exercise Logs
+                    <NavLink class="nav-link" href="/login">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Logout
                     </NavLink>
                 </div>
+            </Authorized>
+        </AuthorizeView>
 
-                <Divider />
-            }
+        <AuthorizeView>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="login">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
 
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="login">
-                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true" @onclick="AuthService.Logout"></span> Log Out
-                </NavLink>
-            </div>
-        }
-        else 
-        {
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="login">
-                    <span class="bi bi-box-arrow-in-right" aria-hidden="true"></span>Log In
-                </NavLink>
-            </div>
-
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="register">
-                    <span class="bi bi-box-arrow-in-right" aria-hidden="true"></span>Register
-                </NavLink>
-            </div>
-        }
+        <AuthorizeView>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="register">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Register
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
     </nav>
 </div>
+@* 
+@code {
+    [Inject]
+    public CustomAuthenticationStateProvider _customAuthenticationStateProvider { get; set; }
 
+    public void Logout()
+    {
+        _customAuthenticationStateProvider.UpdateAuthenticationState(null);
+    }
+} *@

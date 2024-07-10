@@ -19,9 +19,6 @@ namespace SmartWorkout.Components.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        [Inject]
-        public AuthService AuthService { get; set; }
-
         [Parameter]
         public int? ExerciseLogId { get; set; }
 

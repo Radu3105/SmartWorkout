@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using SmartWorkout.Components.Services.Implementations;
+using SmartWorkout.Components.Services.Interfaces;
 using SmartWorkout.DTOs;
 using SmartWorkout.Entities;
 using SmartWorkout.Repositories.Implementations;
@@ -15,11 +17,12 @@ namespace SmartWorkout.Components.Pages
         public IUserRepository UserRepository { get; set; }
 
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        public IAuthorizationService AuthorizationService { get; set; }
 
         [Inject]
-        public AuthService AuthService { get; set; }
+        public NavigationManager NavigationManager { get; set; }
 
+        [SupplyParameterFromForm]
         public UserLoginDto UserLoginDto { get; set; } = new();
 
         public User User { get; set; } = new();
@@ -28,25 +31,16 @@ namespace SmartWorkout.Components.Pages
 
         public async Task LoginUser()
         {
-            User = await UserRepository.GetByEmailAsync(UserLoginDto.Email);
-            if (User == null || UserLoginDto.Password != User.Birthday.Month.ToString() + User.Birthday.Year.ToString())
+            try
+            {
+                await AuthorizationService.Login(UserLoginDto);
+                NavigationManager.NavigateTo("/", true);
+                _failedLogin = false;
+            }
+            catch (Exception e)
             {
                 _failedLogin = true;
-                StateHasChanged();
-            }
-            else
-            {
-                _failedLogin = false;
-                StateHasChanged();
-                AuthService.Login(User);
-                if (AuthService.IsTrainer)
-                {
-                    await InvokeAsync(() => NavigationManager.NavigateTo("/users"));
-                }
-                else
-                {
-                    await InvokeAsync(() => NavigationManager.NavigateTo("/exerciseLogs"));
-                }
+                Console.WriteLine(e);
             }
         }
     }

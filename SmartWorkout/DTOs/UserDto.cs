@@ -17,5 +17,11 @@ namespace WorkoutApp.DTOs
 
         [Required(ErrorMessage = "Please supply gender")]
         public string Gender { get; set; }
+
+        [Required(ErrorMessage = "Please supply email")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Please supply isTrainer")]
+        public bool IsTrainer { get; set; }
     }
 }

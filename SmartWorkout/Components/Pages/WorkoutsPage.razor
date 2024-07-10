@@ -1,47 +1,39 @@
 ﻿@page "/workouts"
 @page "/workouts/{UserId:int}"
+@using Microsoft.AspNetCore.Authorization
 @using SmartWorkout.Entities
 
-@if (!AuthService.IsLoggedIn)
-{
-    <p>You need to log in to access this page.</p>
-}
-else if (!AuthService.IsTrainer)
-{
-    <p>You do not have access to this page.</p>
-}
-else
-{
-    <DataGrid   
-        TItem="Workout"
-        Data="@_workouts"
-        Filterable
-        FilterMethod="DataGridFilterMethod.StartsWith"
-        Responsive
-        Editable
-    >
-       <DataGridColumn TItem="Workout" Field="Name" Caption="Name"></DataGridColumn>
-       <DataGridColumn TItem="Workout" Field="Date" Caption="Date"></DataGridColumn> 
-       <DataGridColumn TItem="Workout" Field= "User.FirstName" Caption="User">
-            <DisplayTemplate>
-                @{
-                    var user2 = (context as Workout)?.User;
+@* @attribute [Authorize]
+ *@
+<DataGrid   
+    TItem="Workout"
+    Data="@_workouts"
+    Filterable
+    FilterMethod="DataGridFilterMethod.StartsWith"
+    Responsive
+    Editable
+>
+    <DataGridColumn TItem="Workout" Field="Name" Caption="Name"></DataGridColumn>
+    <DataGridColumn TItem="Workout" Field="Date" Caption="Date"></DataGridColumn> 
+    <DataGridColumn TItem="Workout" Field= "User.FirstName" Caption="User">
+        <DisplayTemplate>
+            @{
+                var user2 = (context as Workout)?.User;
 
-                    if (user2 != null)
-                    {
-                        @($"{user2.FirstName} {user2.LastName}")
-                    }
+                if (user2 != null)
+                {
+                    @($"{user2.FirstName} {user2.LastName}")
                 }
-            </DisplayTemplate>
-       </DataGridColumn>
-        <DataGridCommandColumn TItem="Workout" ClearFilterCommandAllowed="false" NewCommandAllowed="false">
-            <EditCommandTemplate>
-                <Button Color="Color.Warning" Clicked="() => OnSeeExerciseLogsBtnClicked(context)">See Exercise Logs</Button>
-                <Button Color="Color.Success" Clicked="() => OnAddExerciseLogBtnClicked(context)">+ Add Exercise Log</Button>
-            </EditCommandTemplate>
-            <DeleteCommandTemplate>
-                <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
-            </DeleteCommandTemplate>
-        </DataGridCommandColumn>
-    </DataGrid>
-}
+            }
+        </DisplayTemplate>
+    </DataGridColumn>
+    <DataGridCommandColumn TItem="Workout" ClearFilterCommandAllowed="false" NewCommandAllowed="false">
+        <EditCommandTemplate>
+            <Button Color="Color.Warning" Clicked="() => OnSeeExerciseLogsBtnClicked(context)">See Exercise Logs</Button>
+            <Button Color="Color.Success" Clicked="() => OnAddExerciseLogBtnClicked(context)">+ Add Exercise Log</Button>
+        </EditCommandTemplate>
+        <DeleteCommandTemplate>
+            <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+        </DeleteCommandTemplate>
+    </DataGridCommandColumn>
+</DataGrid>

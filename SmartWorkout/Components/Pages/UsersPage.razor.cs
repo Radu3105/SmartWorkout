@@ -14,9 +14,6 @@ namespace SmartWorkout.Components.Pages
         [Inject]
         private NavigationManager NavigationManager {  get; set; }
 
-        [Inject]
-        public AuthService AuthService { get; set; }
-
         private ICollection<User> _users;
         private User SelectedUser { get; set; }
 
