@@ -23,8 +23,7 @@ namespace SmartWorkout.Repositories.Implementations
 
         public async Task<ICollection<Workout>> GetAllByUserIdAsync(int userId)
         {
-            var result = await context.Workouts.Where(x => x.UserId == userId).ToListAsync();
-            return result;
+            return await context.Workouts.Include(w => w.User).Where(w => w.UserId == userId).ToListAsync();
         }
 
         public async Task<User> GetUserByWorkoutIdAsync(int workoutId)

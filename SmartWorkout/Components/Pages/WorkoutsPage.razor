@@ -26,7 +26,7 @@
     <DataGridColumn TItem="Workout" Field= "User.FirstName" Caption="User">
         <DisplayTemplate>
             @{
-                var user2 = (context as Workout)?.User;
+                var user2 = (context as Workout).User;
 
                 if (user2 != null)
                 {
@@ -41,17 +41,21 @@
                 <Icon Name="IconName.List" TextColor="TextColor.Secondary" IconSize="IconSize.Large" />
                 <Span>See Exercise Logs</Span>
             </Button>
-            <Button Style="border: 1px solid green" Clicked="() => OnAddExerciseLogBtnClicked(context)" TextColor="TextColor.Success">
-                <Icon Name="IconName.Add" TextColor="TextColor.Success" IconSize="IconSize.Large" />
-                <Span>Add Exercise Log</Span>
-            </Button>
+            <AuthorizeView Roles="Administrator" Context="authContext">
+                <Button Style="border: 1px solid green" Clicked="() => OnAddExerciseLogBtnClicked(context)" TextColor="TextColor.Success">
+                    <Icon Name="IconName.Add" TextColor="TextColor.Success" IconSize="IconSize.Large" />
+                    <Span>Add Exercise Log</Span>
+                </Button>
+            </AuthorizeView>
         </EditCommandTemplate>
         <DeleteCommandTemplate>
-            <Tooltip Text="Delete Workout">
-                <Button Style="border: 1px solid red" Clicked="() => OnDeleteBtnClicked(context)">
-                    <Icon Name="IconName.Delete" TextColor="TextColor.Danger" IconSize="IconSize.Large" />
-                </Button>
-            </Tooltip>
+            <AuthorizeView Roles="Administrator" Context="authContext">
+                <Tooltip Text="Delete Workout">
+                    <Button Style="border: 1px solid red" Clicked="() => OnDeleteBtnClicked(context)">
+                        <Icon Name="IconName.Delete" TextColor="TextColor.Danger" IconSize="IconSize.Large" />
+                    </Button>
+                </Tooltip>
+            </AuthorizeView>
         </DeleteCommandTemplate>
     </DataGridCommandColumn>
 </DataGrid>

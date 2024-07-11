@@ -31,12 +31,6 @@ namespace SmartWorkout.Components.Pages
         private bool _isInitialized = false;
         private bool ShowConfirmDialog { get; set; }
 
-
-        //protected override async Task OnInitializedAsync()
-        //{
-        //    _workouts = await WorkoutRepository.GetAllAsync();
-        //}
-
         protected override async Task OnParametersSetAsync()
         {
             if (UserId != null)

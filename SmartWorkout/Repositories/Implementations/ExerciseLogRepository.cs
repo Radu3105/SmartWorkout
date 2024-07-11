@@ -18,7 +18,7 @@ namespace SmartWorkout.Repositories.Implementations
 
         public async Task<ICollection<ExerciseLog>> GetAllByWorkoutIdAsync(int workoutId)
         {
-            return await context.ExerciseLogs.Where(x => x.WorkoutId == workoutId).ToListAsync();
+            return await context.ExerciseLogs.Include(el => el.Exercise).Where(x => x.WorkoutId == workoutId).ToListAsync();
         }
 
         public void Detach(ExerciseLog entity)
