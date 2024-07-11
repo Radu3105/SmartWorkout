@@ -1,5 +1,8 @@
 ﻿using Blazorise.DataGrid;
+using BlazorServerAuthenticationAndAuthorization.Authentication;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using SmartWorkout.Components.Services.Interfaces;
 using SmartWorkout.Entities;
 using SmartWorkout.Mappers;
 using SmartWorkout.Repositories.Implementations;
@@ -17,22 +20,54 @@ namespace SmartWorkout.Components.Pages
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        private ProtectedSessionStorage ProtectedSessionStorage { get; set; }
+
         [Parameter]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         private ICollection<Workout> _workouts;
         public Workout SelectedWorkout { get; set; }
+        private bool _isInitialized = false;
+        private bool ShowConfirmDialog { get; set; }
 
-        protected override async Task OnInitializedAsync()
-        {
-            _workouts = await WorkoutRepository.GetAllAsync();
-        }
+
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    _workouts = await WorkoutRepository.GetAllAsync();
+        //}
 
         protected override async Task OnParametersSetAsync()
         {
-            if (UserId != 0)
+            if (UserId != null)
             {
-                _workouts = await WorkoutRepository.GetAllByUserIdAsync(UserId);
+                _workouts = await WorkoutRepository.GetAllByUserIdAsync((int)UserId);
+            }
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender && !_isInitialized && UserId == null)
+            {
+                var userResult = await ProtectedSessionStorage.GetAsync<UserDto>("UserSession");
+                if (userResult.Success)
+                {
+                    var user = userResult.Value;
+                    if (user != null)
+                    {
+                        if (user.IsTrainer)
+                        {
+                            _workouts = await WorkoutRepository.GetAllAsync();
+                        }
+                        else
+                        {
+                            _workouts = await WorkoutRepository.GetAllByUserIdAsync(user.Id);
+                        }
+                    }
+                }
+                
+                _isInitialized = true;
+                StateHasChanged();
             }
         }
 
@@ -54,13 +89,28 @@ namespace SmartWorkout.Components.Pages
             }
         }
 
-        private async Task OnDeleteBtnClicked(DeleteCommandContext<Workout> context)
+        private void OnDeleteBtnClicked(DeleteCommandContext<Workout> context)
         {
             SelectedWorkout = context.Item;
-            if (SelectedWorkout != null)
+            ShowConfirmDialog = true;
+        }
+
+        private async Task OnConfirmClose(bool confirmed)
+        {
+            ShowConfirmDialog = false;
+
+            if (confirmed && SelectedWorkout != null)
             {
                 await WorkoutRepository.RemoveAsync(SelectedWorkout.Id);
-                await OnInitializedAsync();
+                if (UserId == null)
+                {
+                    _workouts = await WorkoutRepository.GetAllAsync();
+                }
+                else
+                {
+                    _workouts = await WorkoutRepository.GetAllByUserIdAsync(UserId.Value);
+                }
+                StateHasChanged();
             }
         }
     }

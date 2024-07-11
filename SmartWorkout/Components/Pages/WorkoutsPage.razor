@@ -5,6 +5,11 @@
 
 @* @attribute [Authorize]
  *@
+
+<h1>Workouts</h1>
+
+ <ConfirmDeleteDialog TItem="Workout" ShowDialog="ShowConfirmDialog" OnClose="OnConfirmClose" Item="SelectedWorkout"></ConfirmDeleteDialog>
+
 <DataGrid   
     TItem="Workout"
     Data="@_workouts"
@@ -32,11 +37,21 @@
     </DataGridColumn>
     <DataGridCommandColumn TItem="Workout" ClearFilterCommandAllowed="false" NewCommandAllowed="false">
         <EditCommandTemplate>
-            <Button Color="Color.Warning" Clicked="() => OnSeeExerciseLogsBtnClicked(context)">See Exercise Logs</Button>
-            <Button Color="Color.Success" Clicked="() => OnAddExerciseLogBtnClicked(context)">+ Add Exercise Log</Button>
+            <Button Style="border: 1px solid gray" Clicked="() => OnSeeExerciseLogsBtnClicked(context)" TextColor="TextColor.Secondary">
+                <Icon Name="IconName.List" TextColor="TextColor.Secondary" IconSize="IconSize.Large" />
+                <Span>See Exercise Logs</Span>
+            </Button>
+            <Button Style="border: 1px solid green" Clicked="() => OnAddExerciseLogBtnClicked(context)" TextColor="TextColor.Success">
+                <Icon Name="IconName.Add" TextColor="TextColor.Success" IconSize="IconSize.Large" />
+                <Span>Add Exercise Log</Span>
+            </Button>
         </EditCommandTemplate>
         <DeleteCommandTemplate>
-            <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
+            <Tooltip Text="Delete Workout">
+                <Button Style="border: 1px solid red" Clicked="() => OnDeleteBtnClicked(context)">
+                    <Icon Name="IconName.Delete" TextColor="TextColor.Danger" IconSize="IconSize.Large" />
+                </Button>
+            </Tooltip>
         </DeleteCommandTemplate>
     </DataGridCommandColumn>
 </DataGrid>

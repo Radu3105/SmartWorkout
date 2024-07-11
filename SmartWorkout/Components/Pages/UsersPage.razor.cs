@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SmartWorkout.Entities;
+using SmartWorkout.Repositories.Implementations;
 using SmartWorkout.Repositories.Interfaces;
 
 namespace SmartWorkout.Components.Pages
@@ -15,7 +16,10 @@ namespace SmartWorkout.Components.Pages
         private NavigationManager NavigationManager {  get; set; }
 
         private ICollection<User> _users;
+
         private User SelectedUser { get; set; }
+
+        private bool ShowConfirmDialog { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -52,11 +56,23 @@ namespace SmartWorkout.Components.Pages
         private async Task OnDeleteBtnClicked(DeleteCommandContext<User> context)
         {
             SelectedUser = context.Item;
-            if (SelectedUser != null)
-            {
-                await UserRepository.RemoveAsync(SelectedUser.Id);
-                await OnInitializedAsync();
-            }
+            ShowConfirmDialog = true;
         }
+
+        private async Task OnConfirmClose(bool confirmed)
+        {
+            ShowConfirmDialog = false;
+
+            if (confirmed && SelectedUser != null)
+            {
+                if (SelectedUser != null)
+                {
+                    await UserRepository.RemoveAsync(SelectedUser.Id);
+                    await OnInitializedAsync();
+                }
+            }
+            StateHasChanged();
+        }        
     }
 }
+

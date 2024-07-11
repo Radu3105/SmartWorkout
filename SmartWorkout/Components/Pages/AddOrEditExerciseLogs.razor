@@ -1,15 +1,21 @@
 ﻿@page "/exerciseLog/add/{WorkoutId:int}"
 @page "/exerciseLog/edit/{ExerciseLogId:int}"
+@using Microsoft.AspNetCore.Authorization
 @using SmartWorkout.Entities
 @using Extension_Methods
 
+@attribute [Authorize(Roles = "Administrator")]
+
 <EditForm Model="@ExerciseLogDto" OnValidSubmit=@OnFormSubmitAsync FormName="editForm">
     <div class="form-group">
-        <label>Exercise Id :</label>
-        <div>
-            <InputNumber @bind-Value="ExerciseLogDto.ExerciseId" class="form-control col-sm-3" />
-            <ValidationMessage For="@(() => ExerciseLogDto.ExerciseId)" />
-        </div>
+        <label> Select exercise: </label>
+        <InputSelect @bind-Value="ExerciseLogDto.ExerciseId" class="form-control">
+            @foreach (var exercise in Exercises)
+            {
+                <option value="@exercise.Id">@exercise.Description</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => ExerciseLogDto.ExerciseId)" />
     </div>
     <div class="form-group">
         <label>Reps :</label>

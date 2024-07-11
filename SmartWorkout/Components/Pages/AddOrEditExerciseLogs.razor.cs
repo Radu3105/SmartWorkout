@@ -14,6 +14,9 @@ namespace SmartWorkout.Components.Pages
         public IExerciseLogRepository ExerciseLogRepository { get; set; }
 
         [Inject]
+        public IExerciseRepository ExerciseRepository { get; set; }
+
+        [Inject]
         public IWorkoutRepository WorkoutRepository { get; set; }
 
         [Inject]
@@ -29,12 +32,16 @@ namespace SmartWorkout.Components.Pages
         public int? WorkoutId { get; set; }
 
         public ExerciseLogDto ExerciseLogDto { get; set; } = new();
+        
         public ExerciseLog ExerciseLog { get; set; } = new();
 
         private bool IsEdit = false;
 
+        private ICollection<Exercise> Exercises { get; set; } = new List<Exercise>();
+
         protected override async Task OnParametersSetAsync()
         {
+            Exercises = await ExerciseRepository.GetAllAsync();
             if (ExerciseLogId != null)
             {
                 ExerciseLog = await ExerciseLogRepository.GetByIdAsync((int)ExerciseLogId);

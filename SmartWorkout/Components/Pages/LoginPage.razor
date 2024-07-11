@@ -5,42 +5,16 @@
 @using SmartWorkout.Entities
 @using SmartWorkout.Extension_Methods
 
+<div class="login-flex-container bg-img">
+    <h1 class="app-title">Smart<br>Workout</h1>
 
-
-@* <EditForm Model="UserLoginDto" OnValidSubmit="LoginUser" FormName="editForm">
-    <DataAnnotationsValidator />
-
-    <Alert Color="Color.Danger" Visible="@_failedLogin">
-        Invalid login credentials. Please try again.
-    </Alert>
-
-    <div class="form-group">
-        <label>Email :</label>
-        <div>
-            <InputText @bind-Value="UserLoginDto.Email" class="form-control col-sm-3" />
-            <ValidationMessage For="@(() => UserLoginDto.Email)" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Password :</label>
-        <div>
-            <InputText @bind-Value="UserLoginDto.Password" class="form-control col-sm-3" />
-            <ValidationMessage For="@(() => UserLoginDto.Password)" />
-        </div>
-    </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Save" Click="LoginUser" />
-    </div>
-</EditForm> *@
-
-<div class="login-flex-container">
     <div class="login-container">
         <Alert Color="Color.Danger" Visible="@_failedLogin">
             Invalid login credentials. Please try again.
         </Alert>
 
-        <Card>
-            <CardHeader>
+        <Card Class="card">
+            <CardHeader Class="form-header">
                 <h2 class="text-center">Login</h2>
             </CardHeader>
             <CardBody>
@@ -48,20 +22,27 @@
                     <DataAnnotationsValidator />
                     <div class="form-group">
                         <label><h5>Email :</h5></label>
-                        <div>
-                            <InputText @bind-Value="UserLoginDto.Email" class="form-control col-sm-12" />
-                            <ValidationMessage For="@(() => UserLoginDto.Email)" />
-                        </div>
+                        <Field>
+                            <FieldBody>
+                                <TextEdit Role="TextRole.Email" @bind-Text="UserLoginDto.Email" />
+                                <ValidationMessage For="@(() => UserLoginDto.Email)" />
+                            </FieldBody>
+                        </Field>
                     </div>
                     <div class="form-group">
                         <label><h5>Password :</h5></label>
-                        <div>
-                            <InputText @bind-Value="UserLoginDto.Password" InputType="password" class="form-control col-sm-12" />
-                            <ValidationMessage For="@(() => UserLoginDto.Password)" />
-                        </div>
+                        <Field>
+                            <FieldBody>
+                                <div>
+                                    <TextEdit Role="TextRole.Password" @bind-Text="UserLoginDto.Password" autocomplete="new-password" />
+                                    <ValidationMessage For="@(() => UserLoginDto.Password)" />
+                                </div>
+                            </FieldBody>
+                        </Field>
+
                     </div>
                     <div class="form-group text-center">
-                        <Button Color="Color.Primary" Type="ButtonType.Submit" class="btn btn-primary">Login</Button>
+                        <Button Type="ButtonType.Submit" class="btn btn-primary">Login</Button>
                     </div>
                 </EditForm>
             </CardBody>
@@ -70,29 +51,77 @@
 </div>
 
 <style>
+    body {
+        background-color: black !important;
+    }
+
+    .app-title {
+        margin-top: -100px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        font-size: 100px;
+        text-shadow: 1px 1px 10px black;
+    }
+
     .login-flex-container {
         width: 100%;
-        height: 85vh;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
+    .card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0px;
+        border-radius: 10px;
+    }
+
     .login-container {
-        /* max-width: 50vw; */
         width: 30vw;
         margin: 50px auto;
         padding: 20px;
     }
 
+    .form-header {
+        background-color: red;
+        color: white;
+        width: 100%;
+    }
+
     .form-group {
-        margin: 40px 15% 15px 15%;
+        margin: 20px 0;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2rem;
+        margin-top: 10px;
     }
 
     .btn-primary {
-        margin-top: 25px;
-        margin-bottom: 50px;
-        width: 100%;
+        margin-top: 50px;
+        margin-bottom: 25px;
+        width: 50%;
         height: 50px;
+        border: none;
+        background-color: red;
+        font-size: 1.2rem;
+    }
+
+        .btn-primary:hover {
+            background-color: darkred !important;
+        }
+
+    .bg-img {
+        background: url(gymBgImg.jpg);
+        background-size: cover;
+        width: 97vw;
+        height: 97vh;
+        overflow-y: hidden;
     }
 </style>

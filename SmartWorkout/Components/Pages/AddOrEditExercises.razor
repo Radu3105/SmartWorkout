@@ -1,24 +1,78 @@
 ﻿@page "/exercise/add"
 @page "/exercise/edit/{ExerciseId:int}"
+@using Microsoft.AspNetCore.Authorization
 @using SmartWorkout.Entities
 @using Extension_Methods
 
-<EditForm Model="@ExerciseDto" OnValidSubmit=@OnFormSubmitAsync FormName="editForm">
-    <div class="form-group">
-        <label>Description :</label>
-        <div>
-            <InputText @bind-Value="ExerciseDto.Description" class="form-control col-sm-3" />
-            <ValidationMessage For="@(() => ExerciseDto.Description)" />
-        </div>
+@attribute [Authorize(Roles = "Administrator")]
+
+<div class="login-flex-container">
+    <div class="login-container">
+        <Card>
+            <CardBody>
+                <EditForm Model="@ExerciseDto" OnValidSubmit=@OnFormSubmitAsync FormName="editForm">
+                    <div class="form-group">
+                        <label>Description :</label>
+                        <div>
+                            <InputText @bind-Value="ExerciseDto.Description" class="form-control col-sm-3" />
+                            <ValidationMessage For="@(() => ExerciseDto.Description)" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Type :</label>
+                        <div>
+                            <InputText @bind-Value="ExerciseDto.Type" class="form-control col-sm-3" />
+                            <ValidationMessage For="@(() => ExerciseDto.Type)" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Save" />
+                    </div>
+                </EditForm>
+            </CardBody>
+        </Card>
     </div>
-    <div class="form-group">
-        <label>Type :</label>
-        <div>
-            <InputText @bind-Value="ExerciseDto.Type" class="form-control col-sm-3" />
-            <ValidationMessage For="@(() => ExerciseDto.Type)" />
-        </div>
-    </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Save" />
-    </div>
-</EditForm>
+</div>
+
+<style>
+    .login-flex-container {
+        height: 85vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-container {
+        width: 50%;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .form-header {
+        background-color: red;
+        color: white;
+    }
+
+    .form-group {
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .btn-primary {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+        height: 50px;
+        border: none;
+        background-color: red;
+        font-size: 1.2rem;
+    }
+
+        .btn-primary:hover {
+            background-color: darkred !important;
+        }
+</style>

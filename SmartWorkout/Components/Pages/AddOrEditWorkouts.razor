@@ -1,6 +1,9 @@
 ﻿@page "/workout/add/{UserId:int}"
+@using Microsoft.AspNetCore.Authorization
 @using SmartWorkout.Entities
 @using Extension_Methods
+
+@attribute [Authorize(Roles = "Administrator")]
 
 <EditForm Model="@WorkoutDto" OnValidSubmit=@OnFormSubmitAsync FormName="editForm">
     <div class="form-group">

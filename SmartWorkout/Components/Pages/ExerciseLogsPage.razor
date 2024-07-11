@@ -1,6 +1,11 @@
 ﻿@page "/exerciseLogs"
 @page "/exerciseLogs/{WorkoutId:int}"
+@rendermode InteractiveServer
 @using SmartWorkout.Entities
+
+<h1>Exercise Logs</h1>
+
+<ConfirmDeleteDialog TItem="ExerciseLog" ShowDialog="ShowConfirmDialog" OnClose="OnConfirmClose" Item="SelectedExerciseLog"></ConfirmDeleteDialog>
 
 <DataGrid TItem="ExerciseLog"
           Data="@_exerciseLogs"
@@ -16,12 +21,15 @@
     <DataGridColumn TItem="ExerciseLog" Field="Duration" Caption="Duration"></DataGridColumn>
     <DataGridColumn TItem="ExerciseLog" Field="Exercise.Description" Caption="Exercise"></DataGridColumn>
     <DataGridColumn TItem="ExerciseLog" Field="Workout.Name" Caption="Workout"></DataGridColumn>
+    <AuthorizeView Roles="Administrator" Context="authContext">
     <DataGridCommandColumn TItem="ExerciseLog" ClearFilterCommandAllowed="false" NewCommandAllowed="false" EditCommandAllowed="false">
-        <DeleteCommandTemplate>
-            @if (_isAdministrator)
-            {    
-                <Button Color="Color.Danger" Clicked="() => OnDeleteBtnClicked(context)">Delete</Button>
-            }
-        </DeleteCommandTemplate>
+            <DeleteCommandTemplate>
+                <Tooltip Text="Delete Exercise Log">
+                    <Button Style="border: 1px solid red" Clicked="() => OnDeleteBtnClicked(context)">
+                        <Icon Name="IconName.Delete" TextColor="TextColor.Danger" IconSize="IconSize.Large" />
+                    </Button>
+                </Tooltip>
+            </DeleteCommandTemplate>
     </DataGridCommandColumn>
+    </AuthorizeView>
 </DataGrid>

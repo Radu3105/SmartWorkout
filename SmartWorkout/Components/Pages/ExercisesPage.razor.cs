@@ -15,7 +15,9 @@ namespace SmartWorkout.Components.Pages
         private NavigationManager NavigationManager { get; set; }
 
         private  ICollection<Exercise> _exercises;
+
         private Exercise SelectedExercise { get; set; }
+        private bool ShowConfirmDialog { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -34,11 +36,21 @@ namespace SmartWorkout.Components.Pages
         private async Task OnDeleteBtnClicked(DeleteCommandContext<Exercise> context)
         {
             SelectedExercise = context.Item;
-            if (SelectedExercise != null)
+            ShowConfirmDialog = true;
+        }
+
+        private async Task OnConfirmClose(bool confirmed)
+        {
+            ShowConfirmDialog = false;
+            if (confirmed && SelectedExercise != null)
             {
-                await ExerciseRepository.RemoveAsync(SelectedExercise.Id);
-                await OnInitializedAsync();
+                if (SelectedExercise != null)
+                {
+                    await ExerciseRepository.RemoveAsync(SelectedExercise.Id);
+                    await OnInitializedAsync();
+                }
             }
+            StateHasChanged();
         }
     }
 }
